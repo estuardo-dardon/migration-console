@@ -1,0 +1,17 @@
+# Copy to docker-compose.yml, copy config.example.json to config.json and put the secrets in .env.
+services:
+  migration-console:
+    build: .
+    restart: unless-stopped
+    environment:
+      CONSOLE_TOKEN: ${CONSOLE_TOKEN:?set CONSOLE_TOKEN to a long random secret}
+      DEV_DATABASE_URL: ${DEV_DATABASE_URL:-}
+      STAGE_DATABASE_URL: ${STAGE_DATABASE_URL:-}
+      PROD_DATABASE_URL: ${PROD_DATABASE_URL:-}
+    volumes:
+      - ./config.json:/config/config.json:ro
+      # The folder with <version>_<name>.sql files (read only: the console never writes to it).
+      - ${MIGRATIONS_DIR:?set MIGRATIONS_DIR to your migrations folder}:/migrations:ro
+    ports:
+      # Loopback only. Put your own authenticated proxy in front of it to share it; do not publish it openly.
+      - "127.0.0.1:8080:8080"

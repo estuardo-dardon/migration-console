@@ -1,0 +1,27 @@
+{
+  "migrationsDir": "/migrations",
+  "port": 8080,
+  "environments": [
+    {
+      "name": "dev",
+      "driver": "postgres",
+      "url": "${DEV_DATABASE_URL}",
+      "mode": "apply"
+    },
+    {
+      "name": "stage",
+      "driver": "postgres",
+      "url": "${STAGE_DATABASE_URL}",
+      "mode": "apply",
+      "lockTimeoutMs": 5000
+    },
+    {
+      "name": "prod",
+      "driver": "postgres",
+      "url": "${PROD_DATABASE_URL}",
+      "mode": "simulate-only",
+      "schemas": ["public"],
+      "lockTimeoutMs": 3000
+    }
+  ]
+}

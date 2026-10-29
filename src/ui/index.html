@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Consola de migraciones</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <header class="top">
+    <h1 data-i18n="app.title">Consola de migraciones</h1>
+    <div class="who">
+      <label><span data-i18n="lang.label">Idioma</span> <select id="lang"><option value="es-ES">Español</option><option value="en-US">English</option></select></label>
+      <span id="who" hidden>
+        <label><span data-i18n="user.label">Usuario</span> <input id="user" maxlength="80" data-i18n-placeholder="user.placeholder" placeholder="tu nombre" autocomplete="off"></label>
+        <button id="logout" class="link" data-i18n="logout">Salir</button>
+      </span>
+    </div>
+  </header>
+
+  <main id="login" class="card narrow">
+    <h2 data-i18n="login.title">Acceso</h2>
+    <p class="muted" data-i18n="login.help">Pega el token de la consola (CONSOLE_TOKEN). No se guarda en el navegador más allá de esta pestaña.</p>
+    <form id="login-form">
+      <input id="token" type="password" autocomplete="off" data-i18n-placeholder="login.token" placeholder="token" required>
+      <button type="submit" class="primary" data-i18n="login.submit">Entrar</button>
+    </form>
+    <p id="login-error" class="error" role="alert" hidden></p>
+  </main>
+
+  <main id="app" hidden>
+    <nav id="envs" class="tabs" data-i18n-aria-label="envs.aria" aria-label="Ambientes"></nav>
+    <section id="env-info" class="card"></section>
+    <section class="card">
+      <div class="toolbar" id="toolbar"></div>
+      <div class="table-wrap">
+        <table id="migrations">
+          <thead><tr><th></th><th data-i18n="col.version">Versión</th><th data-i18n="col.name">Nombre</th><th data-i18n="col.status">Estado</th><th data-i18n="col.applied">Aplicada</th><th></th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+      <p id="empty" class="muted" data-i18n="empty" hidden>No hay migraciones en la carpeta configurada.</p>
+    </section>
+    <section id="result" class="card" hidden></section>
+  </main>
+
+  <div id="dialog" class="overlay" hidden>
+    <div class="dialog" role="dialog" aria-modal="true" aria-labelledby="dialog-title">
+      <h2 id="dialog-title"></h2>
+      <div id="dialog-body"></div>
+      <div class="actions"><button id="dialog-cancel" data-i18n="dialog.cancel">Cancelar</button><button id="dialog-ok" class="primary" disabled>Confirmar</button></div>
+    </div>
+  </div>
+  <div id="toast" class="toast" role="status" hidden></div>
+  <script src="/app.js" type="module"></script>
+</body>
+</html>
